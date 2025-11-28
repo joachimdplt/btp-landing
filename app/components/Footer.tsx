@@ -10,11 +10,13 @@ export function Footer() {
         email: "",
         phone: ""
     });
+    const API_URL = "http://72.61.101.96:4000";
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
-            await fetch("http://72.61.101.96:4000/lead", {
+            await fetch(`${API_URL}/lead`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

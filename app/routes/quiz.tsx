@@ -45,11 +45,13 @@ export default function Quiz() {
             setTimeout(() => setStep(step + 1), 300);
         }
     };
+    const API_URL = "http://72.61.101.96:4000";
+
     const handleFinish = async () => {
         try {
             console.log("[QUIZ] Envoi de la 2ème partie du lead :", formData);
 
-            const res = await fetch("http://72.61.101.96:4000/lead-quiz", {
+            const res = await fetch(`${API_URL}/lead-quiz`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
