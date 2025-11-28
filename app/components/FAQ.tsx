@@ -25,10 +25,10 @@ export function FAQ() {
         <section className="py-24 bg-white">
             <div className="container mx-auto px-4 max-w-3xl">
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 font-heading">
+                    <h2 className="text-3xl md:text-4xl font-bold text-primary-950 mb-4 font-heading">
                         Questions Fréquentes
                     </h2>
-                    <p className="text-slate-600">
+                    <p className="text-secondary-600">
                         Tout ce que vous devez savoir avant de vous lancer.
                     </p>
                 </div>
@@ -47,23 +47,28 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="border border-slate-200 rounded-xl overflow-hidden">
+        <div className="border border-secondary-200 rounded-xl overflow-hidden">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full flex items-center justify-between p-6 text-left bg-white hover:bg-slate-50 transition-colors"
+                className="w-full flex items-center justify-between p-6 text-left bg-white hover:bg-secondary-50 transition-colors"
             >
-                <span className="font-semibold text-slate-900 pr-8">{question}</span>
+                <span className="font-semibold text-primary-950 pr-8">{question}</span>
                 {isOpen ? (
                     <Minus className="w-5 h-5 text-primary-500 flex-shrink-0" />
                 ) : (
-                    <Plus className="w-5 h-5 text-slate-400 flex-shrink-0" />
+                    <Plus className="w-5 h-5 text-secondary-400 flex-shrink-0" />
                 )}
             </button>
-            {isOpen && (
-                <div className="p-6 pt-0 bg-white text-slate-600 leading-relaxed border-t border-slate-100">
-                    {answer}
+            <div
+                className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                    }`}
+            >
+                <div className="overflow-hidden">
+                    <div className="p-6 pt-0 bg-white text-secondary-600 leading-relaxed border-t border-secondary-100">
+                        {answer}
+                    </div>
                 </div>
-            )}
+            </div>
         </div>
     );
 }
