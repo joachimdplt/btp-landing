@@ -10,30 +10,33 @@ export function Footer() {
         email: "",
         phone: ""
     });
-    const API_URL = "http://72.61.101.96:4000";
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-        try {
-            await fetch(`${API_URL}/lead`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
-                });
-            console.log("Lead envoyé avec succès");
-            // tu peux checker res.ok si tu veux gérer les erreurs serveur
-        } catch (error) {
-            console.error("Erreur lors de l'envoi du lead :", error);
-            // ici tu peux afficher un message d'erreur à l'utilisateur si tu veux
-        }
+  try {
+    const res = await fetch("/api/lead", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData), // { firstname, lastname, email, phone }
+    });
 
-        // On enchaîne avec le quiz, en gardant les infos dans le state
-        navigate("/quiz", { state: formData });
-        console.log(formData);
-    };
+    const data = await res.json().catch(() => null);
+    console.log("[LEAD] status:", res.status, "data:", data);
+
+    if (!res.ok) {
+      console.error("[LEAD] Erreur API, on ne navigue pas");
+      return;
+    }
+
+    // si tout va bien, on continue vers le quiz
+    navigate("/quiz", { state: formData });
+  } catch (error) {
+    console.error("[LEAD] Erreur réseau vers l'API Vercel :", error);
+  }
+};
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
