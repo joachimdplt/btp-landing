@@ -5,5 +5,9 @@ export default [
     {
         path: "quiz",
         file: "routes/quiz.tsx",
-    }
+    },
+      {
+        path: "api/lead",
+        file: "routes/api.lead.ts",
+    },
 ] satisfies RouteConfig;
